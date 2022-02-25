@@ -52,15 +52,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitre" />
 
-    <RadioGroup
-        android:id="@+id/rbCateg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/etCateg"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
     <androidx.recyclerview.widget.RecyclerView
 
@@ -73,8 +64,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbCateg"
-        tools:listitem="Certification" />
+        app:layout_constraintTop_toBottomOf="@+id/etCateg" />
 
 
 

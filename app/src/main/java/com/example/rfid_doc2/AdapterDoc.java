@@ -20,6 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 
 //<ModelFilm, AdapterFilm.FilmsViewHolder>
@@ -41,39 +42,42 @@ public class AdapterDoc extends FirestoreRecyclerAdapter<ModelDoc, AdapterDoc.Do
 
     @Override
     protected void onBindViewHolder(@NonNull DocViewHolder holder, int position, @NonNull ModelDoc model) {
-        String titre = model.getDoc_titre();
-        String auteur = model.getDoc_auteur();
-        String formatDoc = model.getDoc_format();
-
+        String titre = model.getTitre();
         Log.d(TAG, "Adapter : " + titre);
-        /*
-        holder.tvTitre.setText(titre);
-        holder.tvAuteur.setText(auteur);
+
+        if(titre != null) {
+            String auteur = model.getAuteur();
+            String formatDoc = model.getFormat();
 
 
-        int iconeDoc = R.drawable.ic_launcher_background;
-        if(formatDoc.equals("audio")) {
-            iconeDoc = R.drawable.ic_audiotrack_48;
-        } else if(formatDoc.equals("photo")) {
-            iconeDoc = R.drawable.ic_photo_48;
-        }*/
+            holder.tvTitre.setText(titre);
+            holder.tvAuteur.setText(auteur);
 
-        /*
-        RequestOptions opts = new RequestOptions()
-                .centerCrop()
-                .error(R.drawable.ic_launcher_background)
-                .placeholder(R.mipmap.ic_launcher);
 
-        Context ctx = holder.ivFormatDoc.getContext();*/
+            int iconeDoc = R.drawable.ic_launcher_background;
+            if (formatDoc.equals("Audio")) {
+                iconeDoc = R.drawable.ic_audiotrack_48;
+            } else if (formatDoc.equals("Photo")) {
+                iconeDoc = R.drawable.ic_photo_48;
+            }
 
-        //holder.ivFormatDoc.setImageResource(iconeDoc);
-        /*Glide.with(ctx)
-                .load(iconeDoc)
-                .apply(opts)
-                .fitCenter()
-                .override(100, 100)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.ivFormatDoc);*/
+
+            RequestOptions opts = new RequestOptions()
+                    .centerCrop()
+                    .error(R.drawable.ic_launcher_background)
+                    .placeholder(R.mipmap.ic_launcher);
+
+            Context ctx = holder.ivFormatDoc.getContext();
+
+            holder.ivFormatDoc.setImageResource(iconeDoc);
+            Glide.with(ctx)
+                    .load(iconeDoc)
+                    .apply(opts)
+                    .fitCenter()
+                    .override(100, 100)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.ivFormatDoc);
+        }
     }
 
     @NonNull
@@ -99,9 +103,24 @@ public class AdapterDoc extends FirestoreRecyclerAdapter<ModelDoc, AdapterDoc.Do
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    int pos = getBindingAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION && filmClickListener != null) {
+                        //itemView.
+                        DocumentSnapshot doc1 = getSnapshots().getSnapshot(pos);
+                        filmClickListener.onItemClick(doc1, pos);
+                    }
                 }
             });
         }
     }
+    public interface OnItemClickListener {
+        void onItemClick(DocumentSnapshot documentSnapshot, int pos);
+    }
+
+    private OnItemClickListener filmClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener docCL1) {
+        this.filmClickListener = docCL1;
+    }
+
 }

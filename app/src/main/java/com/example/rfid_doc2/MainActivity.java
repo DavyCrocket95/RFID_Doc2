@@ -102,12 +102,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listDoc() {
-        Query q1 = db.collection("Doc");
-        //        .whereEqualTo("idProd", idProd);
-/*
+
+        /**** Prendre les datas suivant un modelDoc. Attention le modelDoc doit avoir les nommages des champs identiques à celui du firebase ****/
         Query q1 = db.collection("Doc")
                 .whereEqualTo("idProd", idProd)
-                .whereEqualTo("archive", "false");*/
+                .whereEqualTo("archive", "false");
 
         Log.d(TAG, "onSuccess: idProd 2:" + idProd );
         FirestoreRecyclerOptions<ModelDoc> listDoc =
@@ -115,13 +114,11 @@ public class MainActivity extends AppCompatActivity {
                         .setQuery(q1, ModelDoc.class)
                         .build();
 
-        Log.d(TAG, "Adapter : " + listDoc.toString());
-
         adapterDoc = new AdapterDoc((listDoc));
         rvDoc.setAdapter(adapterDoc);
         adapterDoc.startListening();
 
- /*
+ /*     Prend les datas sans le modelDoc
         db.collection("Doc")
                 .whereEqualTo("idProd", idProd)
                 .whereEqualTo("archive", "false").get()
@@ -141,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                     s2 += (":" + s);
                                     tvTitre.setText(s2);
 
-                                    ModelDoc doc1 = documentSnapshot.toObject(ModelDoc.class);
+                                    ModelDoc doc1 = documentSnapshot.toObject(ModelDoc.class);      //au lieu de prendre par get, on s'appuit sur le modelDoc
 
                                 }
                             }
