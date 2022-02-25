@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (documentSnapshot.exists()) {
                                     Log.d(TAG, "onSuccess: DOCUMENT" + documentSnapshot.getId() + " ; " + documentSnapshot.getData());
                                     idProd = documentSnapshot.getId();
+                                    Log.d(TAG, "onSuccess: name " + documentSnapshot.get("name") );
                                     listDoc();
                                 }
                             }
@@ -178,11 +180,29 @@ public class MainActivity extends AppCompatActivity {
         //  rvDoc.setAdapter(adapterDoc);
     }
 
+    /*
+    private void clickItem() {
+        adapterDoc.setOnItemClickListener(new AdapterDoc.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int pos) {
+                String idFilm = documentSnapshot.getId();
+
+
+                Intent i2 = new Intent(HomeActivity.this, DetailActivity.class);
+                i2.putExtra(KEY_ID, idFilm);
+                startActivity(i2);
+
+
+            }
+        });
+    }*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         init();
+        //clickItem();
     }
 }

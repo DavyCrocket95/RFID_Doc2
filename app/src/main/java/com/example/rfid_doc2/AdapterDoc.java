@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,6 +78,9 @@ public class AdapterDoc extends FirestoreRecyclerAdapter<ModelDoc, AdapterDoc.Do
                     .override(100, 100)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.ivFormatDoc);
+
+          //  holder.tvTitre.setOnClickListener((View.OnClickListener) this);
+          //  holder.ivFormatDoc.setOnClickListener((View.OnClickListener) this);
         }
     }
 
@@ -86,10 +90,11 @@ public class AdapterDoc extends FirestoreRecyclerAdapter<ModelDoc, AdapterDoc.Do
         View v1 = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.row_doc, parent, false);
+
         return new DocViewHolder(v1);
     }
 
-    public class DocViewHolder extends RecyclerView.ViewHolder {
+       public class DocViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivFormatDoc;
         private TextView tvTitre, tvAuteur;
 
@@ -100,14 +105,40 @@ public class AdapterDoc extends FirestoreRecyclerAdapter<ModelDoc, AdapterDoc.Do
             tvTitre = itemView.findViewById(R.id.tvTitre);
             tvAuteur = itemView.findViewById(R.id.tvAuteur);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            ivFormatDoc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Toast.makeText(view.getContext(), "format", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v1) {
                     int pos = getBindingAdapterPosition();
+
+
+                    Log.d(TAG, "Adapter click :" + v1.getId() + " image : " + ivFormatDoc.getId() + " titre : " + tvTitre.getId());
+                    Log.d(TAG, "Adapter position : " + pos);
+
+                    if (v1.getId() == tvTitre.getId()) {
+                        Log.d(TAG, "Adapter titre : " );
+                    } else if (v1.getId() == ivFormatDoc.getId()) {
+                        Log.d(TAG, "Adapter contenuDoc : " );
+                    }
+
+
                     if (pos != RecyclerView.NO_POSITION && filmClickListener != null) {
                         //itemView.
                         DocumentSnapshot doc1 = getSnapshots().getSnapshot(pos);
-                        filmClickListener.onItemClick(doc1, pos);
+                        //filmClickListener.onItemClick(doc1, pos);
+                        Log.d(TAG, "Adapter click2" );
+
+                        if (v1.getId() == tvTitre.getId()) {
+                            Log.d(TAG, "Adapter titre : " + doc1.get("titre"));
+                        } else if (v1.getId() == ivFormatDoc.getId()) {
+                            Log.d(TAG, "Adapter contenuDoc : " + doc1.get("contenuDoc"));
+                        }
                     }
                 }
             });
