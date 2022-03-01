@@ -1,6 +1,7 @@
 package com.example.rfid_doc2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
@@ -57,9 +58,11 @@ public class AdapterDoc extends FirestoreRecyclerAdapter<ModelDoc, AdapterDoc.Do
 
             int iconeDoc = R.drawable.ic_launcher_background;
             if (formatDoc.equals("Audio")) {
-                iconeDoc = R.drawable.ic_audiotrack_48;
+                iconeDoc = R.drawable.audio;
             } else if (formatDoc.equals("Photo")) {
-                iconeDoc = R.drawable.ic_photo_48;
+                iconeDoc = R.drawable.photo;
+            } else if (formatDoc.equals("Video")) {
+                iconeDoc = R.drawable.video;
             }
 
 
@@ -101,14 +104,42 @@ public class AdapterDoc extends FirestoreRecyclerAdapter<ModelDoc, AdapterDoc.Do
         public DocViewHolder(@NonNull View itemView) {
             super(itemView);
 
+
             ivFormatDoc = itemView.findViewById(R.id.ivFormatDoc);
             tvTitre = itemView.findViewById(R.id.tvTitre);
             tvAuteur = itemView.findViewById(R.id.tvAuteur);
 
+            Context mContext = ivFormatDoc.getContext();
             ivFormatDoc.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(), "format", Toast.LENGTH_SHORT).show();
+                public void onClick(View v2) {
+                    Toast.makeText(v2.getContext(), "format", Toast.LENGTH_SHORT).show();
+                    int pos = getBindingAdapterPosition();
+                    Log.d(TAG, "Adapter position image : " + pos);
+
+                        DocumentSnapshot doc1 = getSnapshots().getSnapshot(pos);
+                    String contenuDoc2 = doc1.getString("contenuDoc");
+                    String format2 = doc1.getString("format");
+
+
+                        Log.d(TAG, "Adapter click image" +  doc1.get("titre") + " : " + format2 );
+                    Log.d(TAG, "Adapter contenuDoc : " + contenuDoc2);
+
+                    if(format2.equals("Photo")) {
+                        Intent i2 = new Intent(mContext, Detail2Activity.class);
+                        i2.putExtra("contenuDoc", contenuDoc2);
+                        mContext.startActivity(i2);
+                    } else if(format2.equals("Audio")) {
+                        Intent i3 = new Intent(mContext, Detail3Activity.class);
+                        i3.putExtra("contenuDoc", contenuDoc2);
+                        mContext.startActivity(i3);
+                    }
+                    else {
+                        Log.d(TAG, "Adapter erreur format : " + format2);
+                    }
+
+
+
                 }
             });
 
@@ -121,29 +152,18 @@ public class AdapterDoc extends FirestoreRecyclerAdapter<ModelDoc, AdapterDoc.Do
                     Log.d(TAG, "Adapter click :" + v1.getId() + " image : " + ivFormatDoc.getId() + " titre : " + tvTitre.getId());
                     Log.d(TAG, "Adapter position : " + pos);
 
-                    if (v1.getId() == tvTitre.getId()) {
-                        Log.d(TAG, "Adapter titre : " );
-                    } else if (v1.getId() == ivFormatDoc.getId()) {
-                        Log.d(TAG, "Adapter contenuDoc : " );
-                    }
+                    DocumentSnapshot doc1 = getSnapshots().getSnapshot(pos);
+                    String idDoc = doc1.getId();
 
+                    Intent i4 = new Intent(mContext, Detail4Activity.class);
+                    i4.putExtra("idDoc", idDoc);
+                    mContext.startActivity(i4);
 
-                    if (pos != RecyclerView.NO_POSITION && filmClickListener != null) {
-                        //itemView.
-                        DocumentSnapshot doc1 = getSnapshots().getSnapshot(pos);
-                        //filmClickListener.onItemClick(doc1, pos);
-                        Log.d(TAG, "Adapter click2" );
-
-                        if (v1.getId() == tvTitre.getId()) {
-                            Log.d(TAG, "Adapter titre : " + doc1.get("titre"));
-                        } else if (v1.getId() == ivFormatDoc.getId()) {
-                            Log.d(TAG, "Adapter contenuDoc : " + doc1.get("contenuDoc"));
-                        }
-                    }
                 }
             });
         }
     }
+
     public interface OnItemClickListener {
         void onItemClick(DocumentSnapshot documentSnapshot, int pos);
     }

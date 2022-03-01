@@ -10,18 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RFID_Doc2">
         <activity
+            android:name=".Detail4Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Detail3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Detail2Activity"
+            android:exported="false" />
+        <activity
             android:name=".SignInActivity"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -3,17 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/Projets/RFID_Doc2/app/src/main/res/layout/activity_detail2.xml" value="0.18632478632478633" />
+        <entry key="..\:/Android/Projets/RFID_Doc2/app/src/main/res/layout/activity_detail3.xml" value="0.18632478632478633" />
+        <entry key="..\:/Android/Projets/RFID_Doc2/app/src/main/res/layout/activity_detail4.xml" value="0.18632478632478633" />
         <entry key="..\:/Android/Projets/RFID_Doc2/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Android/Projets/RFID_Doc2/app/src/main/res/layout/activity_sign_in.xml" value="0.1398148148148148" />
+        <entry key="..\:/Android/Projets/RFID_Doc2/app/src/main/res/layout/fragment_detail2.xml" value="0.18632478632478633" />
         <entry key="..\:/Android/Projets/RFID_Doc2/app/src/main/res/layout/row_doc.xml" value="0.18974358974358974" />
-        <entry key="..\:/Users/DavyC/AndroidStudioProjects/RFID_Doc2/app/src/main/res/drawable/ic_article_48.xml" value="0.2425" />
-        <entry key="..\:/Users/DavyC/AndroidStudioProjects/RFID_Doc2/app/src/main/res/drawable/ic_audiotrack_48.xml" value="0.2425" />
-        <entry key="..\:/Users/DavyC/AndroidStudioProjects/RFID_Doc2/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/DavyC/AndroidStudioProjects/RFID_Doc2/app/src/main/res/layout/row_doc.xml" value="0.18802083333333333" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

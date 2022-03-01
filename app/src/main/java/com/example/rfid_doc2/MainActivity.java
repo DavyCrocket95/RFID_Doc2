@@ -165,37 +165,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void getDataFromFirebase(String idProd, String categorie) {
-        Query query = db.collection("Doc")
-                .whereEqualTo("idProd", idProd)
-                .whereEqualTo("categorie", categorie)
-                .whereEqualTo("archive", "false");
 
-        FirestoreRecyclerOptions<ModelDoc> lstDoc =
-                new FirestoreRecyclerOptions.Builder<ModelDoc>()
-                        .setQuery(query, ModelDoc.class)
-                        .build();
-
-        //  adapterDoc = new AdapterDoc((lstDoc));
-        //  rvDoc.setAdapter(adapterDoc);
-    }
-
-    /*
-    private void clickItem() {
-        adapterDoc.setOnItemClickListener(new AdapterDoc.OnItemClickListener() {
-            @Override
-            public void onItemClick(DocumentSnapshot documentSnapshot, int pos) {
-                String idFilm = documentSnapshot.getId();
-
-
-                Intent i2 = new Intent(HomeActivity.this, DetailActivity.class);
-                i2.putExtra(KEY_ID, idFilm);
-                startActivity(i2);
-
-
-            }
-        });
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +173,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
-        //clickItem();
+
     }
 }
